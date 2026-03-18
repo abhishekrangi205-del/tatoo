@@ -3,6 +3,13 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Instagram } from "lucide-react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel"
 
 const artists = [
   {
@@ -31,6 +38,65 @@ const artists = [
   },
 ]
 
+function ArtistCard({ artist, hoveredId, setHoveredId }: { 
+  artist: typeof artists[0]
+  hoveredId: number | null
+  setHoveredId: (id: number | null) => void 
+}) {
+  return (
+    <div
+      className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
+      onMouseEnter={() => setHoveredId(artist.id)}
+      onMouseLeave={() => setHoveredId(null)}
+    >
+      <Image
+        src={artist.image}
+        alt={artist.name}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+
+      {/* Default Overlay - Name */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent flex flex-col justify-end p-6 transition-opacity duration-300 ${
+          hoveredId === artist.id ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <h3 className="font-serif text-2xl text-foreground">{artist.name}</h3>
+        <p className="text-primary text-sm uppercase tracking-wider mt-1">
+          {artist.specialty}
+        </p>
+      </div>
+
+      {/* Hover Overlay - Full Info */}
+      <div
+        className={`absolute inset-0 bg-background/95 flex flex-col justify-center items-center p-8 text-center transition-all duration-300 ${
+          hoveredId === artist.id
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
+      >
+        <h3 className="font-serif text-3xl text-foreground mb-2">{artist.name}</h3>
+        <p className="text-primary text-sm uppercase tracking-wider mb-4">
+          {artist.specialty}
+        </p>
+        <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
+          {artist.bio}
+        </p>
+        <a
+          href={`https://instagram.com/${artist.instagram.replace("@", "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+        >
+          <Instagram size={18} />
+          <span className="text-sm">{artist.instagram}</span>
+        </a>
+      </div>
+    </div>
+  )
+}
+
 export function Artists() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
@@ -47,60 +113,36 @@ export function Artists() {
           </h2>
         </div>
 
-        {/* Artists Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {artists.map((artist) => (
-            <div
-              key={artist.id}
-              className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
-              onMouseEnter={() => setHoveredId(artist.id)}
-              onMouseLeave={() => setHoveredId(null)}
-            >
-              <Image
-                src={artist.image}
-                alt={artist.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-
-              {/* Default Overlay - Name */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent flex flex-col justify-end p-6 transition-opacity duration-300 ${
-                  hoveredId === artist.id ? "opacity-0" : "opacity-100"
-                }`}
-              >
-                <h3 className="font-serif text-2xl text-foreground">{artist.name}</h3>
-                <p className="text-primary text-sm uppercase tracking-wider mt-1">
-                  {artist.specialty}
-                </p>
-              </div>
-
-              {/* Hover Overlay - Full Info */}
-              <div
-                className={`absolute inset-0 bg-background/95 flex flex-col justify-center items-center p-8 text-center transition-all duration-300 ${
-                  hoveredId === artist.id
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4 pointer-events-none"
-                }`}
-              >
-                <h3 className="font-serif text-3xl text-foreground mb-2">{artist.name}</h3>
-                <p className="text-primary text-sm uppercase tracking-wider mb-4">
-                  {artist.specialty}
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
-                  {artist.bio}
-                </p>
-                <a
-                  href={`https://instagram.com/${artist.instagram.replace("@", "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-                >
-                  <Instagram size={18} />
-                  <span className="text-sm">{artist.instagram}</span>
-                </a>
-              </div>
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <CarouselContent className="-ml-4">
+              {artists.map((artist) => (
+                <CarouselItem key={artist.id} className="pl-4 basis-[85%]">
+                  <ArtistCard 
+                    artist={artist} 
+                    hoveredId={hoveredId} 
+                    setHoveredId={setHoveredId} 
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="static translate-y-0 bg-primary/10 border-primary/20 hover:bg-primary/20" />
+              <CarouselNext className="static translate-y-0 bg-primary/10 border-primary/20 hover:bg-primary/20" />
             </div>
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8">
+          {artists.map((artist) => (
+            <ArtistCard 
+              key={artist.id}
+              artist={artist} 
+              hoveredId={hoveredId} 
+              setHoveredId={setHoveredId} 
+            />
           ))}
         </div>
       </div>

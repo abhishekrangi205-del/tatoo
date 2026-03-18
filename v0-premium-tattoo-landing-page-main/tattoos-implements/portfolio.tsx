@@ -2,7 +2,14 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X } from "lucide-react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel"
 
 const portfolioItems = [
   {
@@ -47,9 +54,30 @@ const portfolioItems = [
     category: "Realism",
     artist: "Elena Vasquez",
   },
+  {
+    id: 7,
+    image: "/images/portfolio-electric-1.jpg",
+    title: "Lightning Pulse",
+    category: "Electric",
+    artist: "Marcus Chen",
+  },
+  {
+    id: 8,
+    image: "/images/portfolio-electric-2.jpg",
+    title: "Cyber Guitar",
+    category: "Electric",
+    artist: "Elena Vasquez",
+  },
+  {
+    id: 9,
+    image: "/images/portfolio-electric-3.jpg",
+    title: "Electric Phoenix",
+    category: "Electric",
+    artist: "Kai Nakamura",
+  },
 ]
 
-const categories = ["All", "Fine Line", "Traditional", "Japanese", "Blackwork", "Realism"]
+const categories = ["All", "Fine Line", "Traditional", "Japanese", "Blackwork", "Realism", "Electric"]
 
 export function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All")
@@ -73,13 +101,13 @@ export function Portfolio() {
           </h2>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* Category Filter - Horizontal Scroll on Mobile */}
+        <div className="flex overflow-x-auto pb-4 mb-8 md:mb-12 gap-2 md:gap-3 md:flex-wrap md:justify-center md:overflow-visible scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-5 py-2 text-xs uppercase tracking-widest transition-all duration-300 ${
+              className={`px-4 md:px-5 py-2 text-xs uppercase tracking-widest transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                 activeCategory === category
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -90,8 +118,48 @@ export function Portfolio() {
           ))}
         </div>
 
-        {/* Masonry Gallery */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        {/* Mobile Carousel Gallery */}
+        <div className="md:hidden">
+          <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <CarouselContent className="-ml-3">
+              {filteredItems.map((item) => (
+                <CarouselItem key={item.id} className="pl-3 basis-[75%]">
+                  <div
+                    className="group relative overflow-hidden cursor-pointer"
+                    onClick={() => setSelectedImage(item)}
+                  >
+                    <div className="relative aspect-[3/4]">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                        <h3 className="font-serif text-lg text-foreground mb-1">
+                          {item.title}
+                        </h3>
+                        <p className="text-primary text-xs uppercase tracking-wider">
+                          {item.category}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="static translate-y-0 bg-primary/10 border-primary/20 hover:bg-primary/20" />
+              <CarouselNext className="static translate-y-0 bg-primary/10 border-primary/20 hover:bg-primary/20" />
+            </div>
+          </Carousel>
+          <p className="text-center text-muted-foreground text-xs mt-4">
+            {filteredItems.length} {filteredItems.length === 1 ? 'piece' : 'pieces'} in {activeCategory}
+          </p>
+        </div>
+
+        {/* Desktop Masonry Gallery */}
+        <div className="hidden md:block columns-2 lg:columns-3 gap-4 space-y-4">
           {filteredItems.map((item, index) => (
             <div
               key={item.id}

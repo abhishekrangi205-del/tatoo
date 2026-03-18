@@ -62,15 +62,16 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background/20" />
       </div>
 
-      {/* Mobile Background Image */}
+      {/* Mobile Background Image - More Visible */}
       <div className="lg:hidden absolute inset-0 -z-10">
         <Image
           src="/images/hero-tattoo.jpg"
           alt="Tattoo artist at work"
           fill
-          className="object-cover opacity-20"
+          className="object-cover opacity-40"
           priority
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
       </div>
     </section>
   )
