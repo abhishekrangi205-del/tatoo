@@ -12,7 +12,7 @@ export function Hero() {
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-12 lg:px-16 py-32 lg:py-0 bg-background lg:bg-background bg-transparent relative z-10">
         <div className="max-w-lg">
           <p className="text-primary uppercase tracking-[0.3em] text-xs mb-6">
-            Premium Tattoo Artistry
+            Studio 613 Electric Tattoo Co
           </p>
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 text-balance">
             Where Art
