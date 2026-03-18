@@ -34,8 +34,8 @@ export function Navigation() {
       }`}
     >
       <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-serif tracking-wider text-primary">
-          OBSIDIAN INK
+        <Link href="/" className="text-xl md:text-2xl font-serif tracking-wider text-primary">
+          STUDIO 613
         </Link>
 
         {/* Desktop Navigation */}

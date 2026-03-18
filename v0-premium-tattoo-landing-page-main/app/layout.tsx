@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Obsidian Ink Studio | Premium Tattoo Artistry',
-  description: 'Where art meets skin. Premium tattoo studio featuring world-class artists specializing in fine line, traditional, and custom designs.',
+  title: 'Studio 613 Electric Tattoo Co | Premium Tattoo Artistry',
+  description: 'Where art meets skin. Studio 613 Electric Tattoo Co features world-class artists specializing in fine line, traditional, electric, and custom designs.',
   generator: 'v0.app',
   icons: {
     icon: [

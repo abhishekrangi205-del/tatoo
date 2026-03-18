@@ -14,11 +14,11 @@ export function Footer() {
           {/* Brand & Description */}
           <div className="lg:col-span-1">
             <Link href="/" className="text-2xl font-serif tracking-wider text-primary">
-              OBSIDIAN INK
+              STUDIO 613
             </Link>
             <p className="text-muted-foreground mt-4 leading-relaxed">
-              Where art meets skin. Premium tattoo artistry in the heart of the city,
-              creating timeless pieces since 2015.
+              Where art meets skin. Studio 613 Electric Tattoo Co - premium tattoo artistry,
+              creating timeless electric pieces.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ export function Footer() {
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4 text-primary" />
-                hello@obsidianink.studio
+                hello@studio613electric.com
               </a>
               <div className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary mt-1" />
@@ -126,7 +126,7 @@ export function Footer() {
           </div>
 
           <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Obsidian Ink Studio. All rights reserved.
+            &copy; {new Date().getFullYear()} Studio 613 Electric Tattoo Co. All rights reserved.
           </p>
 
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
