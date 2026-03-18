@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex">
       {/* Left Content Panel */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-12 lg:px-16 py-32 lg:py-0 bg-background relative z-10">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-12 lg:px-16 py-32 lg:py-0 bg-background lg:bg-background bg-transparent relative z-10">
         <div className="max-w-lg">
           <p className="text-primary uppercase tracking-[0.3em] text-xs mb-6">
             Premium Tattoo Artistry
@@ -63,15 +63,15 @@ export function Hero() {
       </div>
 
       {/* Mobile Background Image - More Visible */}
-      <div className="lg:hidden absolute inset-0 -z-10">
+      <div className="lg:hidden absolute inset-0 z-0">
         <Image
           src="/images/hero-tattoo.jpg"
           alt="Tattoo artist at work"
           fill
-          className="object-cover opacity-40"
+          className="object-cover opacity-60"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/70" />
       </div>
     </section>
   )
